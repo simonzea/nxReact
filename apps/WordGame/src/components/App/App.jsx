@@ -4,6 +4,7 @@ import Header from '../Header';
 function App() {
   return (
     <div className="wrapper">
+      hola
       <Header />
 
       <div className="game-wrapper">
