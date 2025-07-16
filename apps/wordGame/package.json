@@ -1,5 +1,15 @@
 {
-  "name": "@src/WordGame",
-  "version": "0.0.1",
-  "private": true
+  "name": "word-game",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Josh Comeau <me@joshwcomeau.com>",
+  "dependencies": {
+  },
+  "scripts": {
+    "predev": "rimraf .parcel-cache dist",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
 }
