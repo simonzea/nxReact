@@ -2,34 +2,30 @@ import React from 'react';
 
 import Button from '../Button';
 import ToastShelf  from '../ToastShelf';
-import Toast from '../Toast';
-
+import {ToastContext} from '../ToastContex';
+import useEscapeKey from '../../hooks/useEscapeKey';
 
 import styles from './ToastPlayground.module.css';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
+
+
 function ToastPlayground() {
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
   const [message, setMessage] = React.useState('');
-  const [toasts, setToasts] = React.useState([]);
+  const {toasts, handleAddToast, resetAllToasts} = React.useContext(ToastContext);
 
-  const handleClose = (key)=>{
-    setToasts((prev)=> prev.filter((toast)=> toast.key !== key));
-  }
+  useEscapeKey(resetAllToasts);
 
   const handlePopToast = (event)=>{
-    event.preventDefault();
-    const newkey = crypto.randomUUID();
-    setToasts((prev)=> [...prev, 
-      {
-        key: newkey, 
-        variant: variant,
-        message: message,
-      }]);
+      event.preventDefault();
+      handleAddToast({variant, message});
       setMessage('');
       setVariant(VARIANT_OPTIONS[0]);
       };
+
+  
 
   return (
     <div className={styles.wrapper}>
@@ -37,7 +33,7 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
-      <ToastShelf toasts={toasts} handleClose={handleClose} />
+      <ToastShelf toasts={toasts} />
       <form onSubmit={handlePopToast}>
 
       <div className={styles.controlsWrapper}>

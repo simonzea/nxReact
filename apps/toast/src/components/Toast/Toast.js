@@ -8,8 +8,9 @@ import {
 } from 'react-feather';
 
 import VisuallyHidden from '../VisuallyHidden';
-
+import {ToastContext} from '../ToastContex';
 import styles from './Toast.module.css';
+
 
 const ICONS_BY_VARIANT = {
   notice: Info,
@@ -18,21 +19,28 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({variant, onClose, id, children}) {
+function Toast({variant, id, children}) {
   const Icon = ICONS_BY_VARIANT[variant];
+  const {handleClose} = React.useContext(ToastContext);
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
       <p className={styles.content}>
-        {children || variant}
+        {variant === 'error' &&  <div class="VisuallyHidden_wrapper">
++         error -
++       </div>}
+        {children}
       </p>
       <form onSubmit={(event)=>{
         event.preventDefault();
-        onClose(id);
+        handleClose(id);
       }}>
-        <button className={styles.closeButton} type="submit">
+        <button className={styles.closeButton}
+         type="submit" 
+          aria-label="Dismiss message"
+          aria-live="off">
           <X size={24} />
           <VisuallyHidden>Dismiss message</VisuallyHidden>
         </button>
