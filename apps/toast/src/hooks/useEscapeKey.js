@@ -13,7 +13,7 @@ function useEscapeKey(callback) {
     return () => {
       window.removeEventListener('keydown', clickHandler);
     };
-  }, [callback]);
+  }, []);
 }
 
 export default useEscapeKey; 

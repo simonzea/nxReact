@@ -28,9 +28,9 @@ function Toast({variant, id, children}) {
         <Icon size={24} />
       </div>
       <p className={styles.content}>
-        {variant === 'error' &&  <div class="VisuallyHidden_wrapper">
-+         error -
-+       </div>}
+        <VisuallyHidden className="VisuallyHidden_wrapper">
+          {variant} -
+        </VisuallyHidden>
         {children}
       </p>
       <form onSubmit={(event)=>{
